@@ -3,6 +3,8 @@ package modelo;
 import java.util.HashMap;
 import java.util.Map;
 
+import modelo.Nodo;
+
 public class Nodo<T>
 {
 	private Nodo<T> padre;
@@ -16,6 +18,7 @@ public class Nodo<T>
 	private T elem;
 	
 	public static Map <Operacion, Integer> operaciones;
+	private int numNodos;
 	
 	public Nodo(T elem, Nodo<T> padre, int nHijos, int pos)
 	{
@@ -109,5 +112,19 @@ public class Nodo<T>
 		operaciones.put(Operacion.NOT, 1);
 		operaciones.put(Operacion.IF, 3);
 		operaciones.put(Operacion.OR, 2);
+	}
+	public void setNumNodos(int nodos) {
+		numNodos = nodos;
+	}
+	public Nodo<T> copia(Nodo<T> padre) {
+		Nodo<T> ret = new Nodo<T>(this.elem, padre, this.numHijos, this.pos);
+		Nodo<T>[] hijos = new Nodo[this.numHijos];
+		for(int i=0; i < this.numHijos; ++i){
+			hijos[i] = this.hijos[i].copia(ret);
+		}
+		ret.setHijos(hijos);
+		ret.setElem(this.elem);
+		ret.setNumNodos(this.numHijos);
+		return ret;
 	}
 }

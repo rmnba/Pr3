@@ -1,5 +1,9 @@
 package modelo;
 
+import modelo.Arbol;
+import modelo.Nodo;
+import modelo.Operacion;
+
 public class Arbol<T> 
 {
 	private Nodo<T> raiz;
@@ -111,4 +115,34 @@ public class Arbol<T>
 		} while(n.esTerminal());
 		return n;
 	}
+	public int getProfMin() {
+		return min;
+	}
+
+	public void setProfMin(int profMin) {
+		this.min = profMin;
+	}
+
+	public int getProfMax() {
+		return max;
+	}
+
+	public void setProfMax(int profMax) {
+		this.max = profMax;
+	}
+
+	public Arbol<T> copia() {
+		Arbol<T> ret = new Arbol<T>(this.raiz.getElem());
+		ret.max = this.max;
+		ret.min = this.min;
+		ret.raiz = this.raiz.copia(ret.raiz);
+		return ret;
+	}
+	public void creaArbolAleatorio(int profMin, int profMax){
+		this.min = profMin;
+		this.max = profMax;
+		this.raiz = creaArbol(null, raiz, profMin, profMax, 0);
+	}
+	
+	
 }
