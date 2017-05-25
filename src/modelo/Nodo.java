@@ -95,6 +95,30 @@ public class Nodo<T>
 		this.pos = pos;
 	}
 	
+	public int evalua(Mux mux)
+	{
+		if (this.elem == Operacion.A0)
+			mux.setA0(true);
+		else if(this.elem == Operacion.A1)
+			mux.setA1(true);
+		else if(this.elem == Operacion.A2)
+			mux.setA2(true);
+		else if (this.elem == Operacion.AND)
+			return (this.hijos[0].evalua(mux) && this.hijos[1].evalua(mux));
+		else if (this.elem == Operacion.OR)
+			return (this.hijos[0].evalua(mux) || this.hijos[1].evalua(mux));
+		else if (this.elem == Operacion.NOT)
+			return (!this.hijos[0].evalua(mux));
+		else if (this.elem == Operacion.IF)
+			if (this.hijos[0].evalua(mux))
+				return this.hijos[1].evalua(mux);
+			else
+				return this.hijos[2].evalua(mux);
+		
+		else
+			return mux.evalua();
+	}
+	
 	private void rellenarOperaciones()
 	{
 		operaciones.put(Operacion.A0, 0);
@@ -113,9 +137,11 @@ public class Nodo<T>
 		operaciones.put(Operacion.IF, 3);
 		operaciones.put(Operacion.OR, 2);
 	}
+	
 	public void setNumNodos(int nodos) {
 		numNodos = nodos;
 	}
+	
 	public Nodo<T> copia(Nodo<T> padre) {
 		Nodo<T> ret = new Nodo<T>(this.elem, padre, this.numHijos, this.pos);
 		Nodo<T>[] hijos = new Nodo[this.numHijos];

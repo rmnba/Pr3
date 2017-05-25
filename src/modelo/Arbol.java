@@ -71,11 +71,16 @@ public class Arbol<T>
 	
 	public Nodo<T> buscaNodo(int numeroABuscar)
 	{
-		Nodo<T> buscado = buscaNodo(this.raiz,numeroABuscar);
+		Nodo<T> buscado = buscaNodoAux(this.raiz, numeroABuscar);
 		return buscado;
 	}
 	
-	private Nodo<T> buscaNodo(Nodo<T> raiz, int numeroABuscar)
+	public int evalua(Mux mux)
+	{
+		return raiz.evalua(mux);
+	}
+	
+	private Nodo<T> buscaNodoAux(Nodo<T> raiz, int numeroABuscar)
 	{
 		java.util.concurrent.LinkedBlockingQueue<Nodo<T>> cola = new java.util.concurrent.LinkedBlockingQueue<Nodo<T>>();
 		java.util.concurrent.LinkedBlockingQueue<Nodo<T>> colaC = new java.util.concurrent.LinkedBlockingQueue<Nodo<T>>();

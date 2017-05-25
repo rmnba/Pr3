@@ -5,6 +5,7 @@ import modelo.Operacion;
 import modelo.Cromosoma;
 
 public class Cromosoma {
+	
 	private Arbol<Operacion> genotipo;
 	private double punt;
 	private double puntAcum;
@@ -22,4 +23,6 @@ public class Cromosoma {
 		ret.genotipo = genotipo.copia();
 		return ret;
 	}
+	
+	
 }
