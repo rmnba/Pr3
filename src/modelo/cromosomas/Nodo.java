@@ -1,9 +1,9 @@
-package modelo;
+package modelo.cromosomas;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import modelo.Nodo;
+import modelo.cromosomas.Nodo;
 
 public class Nodo<T>
 {
@@ -29,6 +29,16 @@ public class Nodo<T>
 		this.padre = padre;
 		this.hijos = new Nodo[nHijos];
 		this.pos = pos;
+	}
+	
+	public int actualizaNumNodos()
+	{
+		int n = 1;
+		for(int i=0; i < numHijos; ++i)
+			n += hijos[i].actualizaNumNodos();
+		
+		this.numNodos = n;
+		return n;
 	}
 	
 	public boolean addHijo (Nodo<T> h, int pos)

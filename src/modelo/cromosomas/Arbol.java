@@ -1,8 +1,9 @@
-package modelo;
+package modelo.cromosomas;
 
-import modelo.Arbol;
-import modelo.Nodo;
-import modelo.Operacion;
+import modelo.Rand;
+import modelo.cromosomas.Arbol;
+import modelo.cromosomas.Nodo;
+import modelo.cromosomas.Operacion;
 
 public class Arbol<T> 
 {
@@ -55,6 +56,11 @@ public class Arbol<T>
 		}
 		return a;
 	}
+	
+	public void actualizaNumNodos()
+	{
+		this.raiz.actualizaNumNodos();
+	}
 
 	public Nodo<T> getTerminalAleatorio() 
 	{
@@ -67,6 +73,12 @@ public class Arbol<T>
 			numHijos = actual.getNumHijos();
 		}
 		return actual;
+	}
+	
+	public void insertaNodo(Nodo<T> padre, Nodo<T> hijo, int pos)
+	{
+		if(padre != null) 
+			padre.addHijo(hijo, pos);
 	}
 	
 	public Nodo<T> buscaNodo(int numeroABuscar)
@@ -149,5 +161,9 @@ public class Arbol<T>
 		this.raiz = creaArbol(null, raiz, profMin, profMax, 0);
 	}
 	
+	public int getNumNodos()
+	{
+		return this.numNodos;
+	}
 	
 }
