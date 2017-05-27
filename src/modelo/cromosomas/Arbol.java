@@ -87,7 +87,7 @@ public class Arbol<T>
 		return buscado;
 	}
 	
-	public int evalua(Mux mux)
+	public boolean evalua(Mux mux)
 	{
 		return raiz.evalua(mux);
 	}

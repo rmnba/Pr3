@@ -12,7 +12,7 @@ public class Cromosoma {
 	private double adaptacion;
 	
 	public Cromosoma (int profMin, int profMax){
-		genotipo = new Arbol<Operacion>(Operacion.A0);	// La Op no influye, se sobreescribe
+		genotipo = new Arbol<Operacion>(Operacion.A0);
 		genotipo.creaArbolAleatorio(profMin, profMax);
 	}
 	

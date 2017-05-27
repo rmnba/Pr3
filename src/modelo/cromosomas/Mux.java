@@ -35,7 +35,7 @@ public class Mux
 		this.elems = elems;
 	}
 	
-	public int evalua()
+	public boolean evalua()
 	{
 		if (this.elems == 11)
 		{
@@ -56,10 +56,10 @@ public class Mux
 			this.d3 = (this.a0 && this.a1);
 		}
 		
-		return devolver();
+		return true;
 	}
 	
-	private int devolver()
+	/*private int devolver()
 	{
 		if (d0)
 			return 0;
@@ -77,7 +77,7 @@ public class Mux
 			return 6;
 		else
 			return 7;
-	}
+	}*/
 
 	public boolean isA0() {
 		return a0;

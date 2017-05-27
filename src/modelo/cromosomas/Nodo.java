@@ -105,7 +105,7 @@ public class Nodo<T>
 		this.pos = pos;
 	}
 	
-	public int evalua(Mux mux)
+	public boolean evalua(Mux mux)
 	{
 		if (this.elem == Operacion.A0)
 			mux.setA0(true);
@@ -125,8 +125,7 @@ public class Nodo<T>
 			else
 				return this.hijos[2].evalua(mux);
 		
-		else
-			return mux.evalua();
+		return mux.evalua();
 	}
 	
 	private void rellenarOperaciones()
