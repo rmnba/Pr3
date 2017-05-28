@@ -25,7 +25,7 @@ public class Mux
 		this.a1 = false;
 		this.a2 = false;
 		
-		this.d0 = true;
+		this.d0 = false;
 		this.d1 = false;
 		this.d2 = false;
 		this.d3 = false;
@@ -39,49 +39,42 @@ public class Mux
 		this.salida = 0;
 	}
 	
-	public void evalua()
-	{
+	
+	public boolean resuelve() {
 		if (this.elems == 11)
 		{
-			this.d0 = (!this.a0 && !this.a1 && !this.a2);
-			this.d1 = (!this.a0 && !this.a1 && this.a2);
-			this.d2 = (!this.a0 && this.a1 && !this.a2);
-			this.d3 = (!this.a0 && this.a1 && this.a2);
-			this.d4 = (this.a0 && !this.a1 && !this.a2);
-			this.d5 = (this.a0 && !this.a1 && this.a2);
-			this.d6 = (this.a0 && this.a1 && !this.a2);
-			this.d7 = (this.a0 && this.a1 && this.a2);
+			if (!a0 && !a1 && !a2) {
+				return d0;
+			} else if (a0 && !a1 && !a2) {
+				return d1;
+			} else if (!a0 && a1 && !a2) {
+				return d2;
+			} else if (a0 && a1 && !a2) {
+				return d3;
+			} else if (!a0 && !a1 && a2) {
+				return d4;
+			} else if (a0 && !a1 && a2) {
+				return d5;
+			} else if (!a0 && a1 && a2) {
+				return d6;
+			} else {
+				return d7;
+			}
 		}
 		else
 		{
-			this.d0 = (!this.a0 && !this.a1);
-			this.d1 = (!this.a0 && this.a1);
-			this.d2 = (this.a0 && !this.a1);
-			this.d3 = (this.a0 && this.a1);
+			if (!a0 && !a1) {
+				return d0;
+			} else if (a0 && !a1) {
+				return d1;
+			} else if (!a0 && a1) {
+				return d2;
+			} else {
+				return d3;
+			}
 		}
 	}
 	
-	public int salida()
-	{
-		if (d0)
-			salida = 0;
-		else if (d1)
-			salida = 1;
-		else if (d2)
-			salida = 2;
-		else if (d3)
-			salida = 3;
-		else if (d4)
-			salida = 4;
-		else if (d5)
-			salida = 5;
-		else if (d6)
-			salida = 6;
-		else if (d7)
-			salida = 7;
-		
-		return salida;
-	}
 
 	public boolean isA0() {
 		return a0;

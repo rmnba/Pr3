@@ -6,19 +6,19 @@ public class Poblacion {
 	
 	public int tam;
 	public Cromosoma[] individuos;
-	
+	public int bits;
 	public void generaPoblacionAleatoria(int tam, int profMin, int profMax){
 		this.tam = tam;
 		this.individuos = new Cromosoma[tam];
 		for(int i=0; i < tam; ++i){
-			this.individuos[i] = new Cromosoma(profMin, profMax);
+			this.individuos[i] = new Cromosoma(profMin, profMax, bits);
 		}
 	}
 	
 	public void evalua(){
 		for(int i=0; i < tam; ++i){
 			//TODO
-			//this.individuos[i].evalua(m);
+			this.individuos[i].evalua();
 		}
 	}
 

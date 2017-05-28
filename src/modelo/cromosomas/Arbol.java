@@ -87,9 +87,9 @@ public class Arbol<T>
 		return buscado;
 	}
 	
-	public void evalua(Mux mux)
+	public boolean evalua(Mux mux)
 	{
-		raiz.evalua(mux);
+		return raiz.evalua(mux);
 	}
 	
 	public void bloating(int pMax) {

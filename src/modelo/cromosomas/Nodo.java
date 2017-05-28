@@ -106,27 +106,41 @@ public class Nodo<T>
 		this.pos = pos;
 	}
 	
-	public void evalua(Mux mux)
+	public boolean evalua(Mux mux)
 	{
-		if (this.elem == Operacion.A0)
-			mux.setA0(true);
-		else if(this.elem == Operacion.A1)
-			mux.setA1(true);
-		else if(this.elem == Operacion.A2)
-			mux.setA2(true);
-		else if (this.elem == Operacion.AND)
-			(this.hijos[0].evalua(mux) && this.hijos[1].evalua(mux));
-		else if (this.elem == Operacion.OR)
-			(this.hijos[0].evalua(mux) || this.hijos[1].evalua(mux));
-		else if (this.elem == Operacion.NOT)
-			(!this.hijos[0].evalua(mux));
-		else if (this.elem == Operacion.IF)
-			if (this.hijos[0].evalua(mux))
-				this.hijos[1].evalua(mux);
-			else
-				this.hijos[2].evalua(mux);
-		
-		//return mux.evalua();
+		if (this.elem == Operacion.A0) {
+			return mux.isA0();
+		} else if(this.elem == Operacion.A1) {
+			return mux.isA1();
+		} else if(this.elem == Operacion.A2) {
+			return mux.isA2();
+		} else if(this.elem == Operacion.D0) {
+			return mux.isD0();
+		} else if(this.elem == Operacion.D1) {
+			return mux.isD1();
+		} else if(this.elem == Operacion.D2) {		
+			return mux.isD2();
+		} else if(this.elem == Operacion.D3) {
+			return mux.isD3();
+		} else if(this.elem == Operacion.D4) {
+			return mux.isD4();
+		} else if(this.elem == Operacion.D5) {
+			return mux.isD5();
+		} else if(this.elem == Operacion.D6) {
+			return mux.isD6();
+		} else if(this.elem == Operacion.D7) {
+			return mux.isD7();
+		} else if(this.elem == Operacion.AND) {		
+			return this.hijos[0].evalua(mux) && this.hijos[1].evalua(mux);
+		} else if(this.elem == Operacion.OR) {
+			return this.hijos[0].evalua(mux) || this.hijos[1].evalua(mux);
+		} else if(this.elem == Operacion.NOT) {
+			return !(this.hijos[0].evalua(mux));
+		} else if(this.elem == Operacion.IF) {
+			if (this.hijos[0].evalua(mux)) return this.hijos[1].evalua(mux);
+			else return this.hijos[2].evalua(mux);
+		} 
+		return false;
 	}
 	
 	private void rellenarOperaciones()

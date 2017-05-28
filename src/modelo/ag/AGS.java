@@ -101,13 +101,13 @@ public class AGS {
 			}
 		}
 		notifyAGSTerminado(elMejor);
-		//this.elMejor.evalua(mapa);
+		this.elMejor.evalua();
 		return this.elMejor;
 	}
 
 	private void ajustaAptitud(){
 		for(int i=0;  i < pob.tam; ++i){
-			//pob.individuos[i].evalua(mapa);	// Evalua actualiza por dentro el campo adaptacion
+			pob.individuos[i].evalua();	// Evalua actualiza por dentro el campo adaptacion
 		}
 	}
 	
