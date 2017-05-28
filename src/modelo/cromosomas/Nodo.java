@@ -3,6 +3,7 @@ package modelo.cromosomas;
 import java.util.HashMap;
 import java.util.Map;
 
+import modelo.Rand;
 import modelo.cromosomas.Nodo;
 
 public class Nodo<T>
@@ -105,7 +106,7 @@ public class Nodo<T>
 		this.pos = pos;
 	}
 	
-	public boolean evalua(Mux mux)
+	public void evalua(Mux mux)
 	{
 		if (this.elem == Operacion.A0)
 			mux.setA0(true);
@@ -114,18 +115,18 @@ public class Nodo<T>
 		else if(this.elem == Operacion.A2)
 			mux.setA2(true);
 		else if (this.elem == Operacion.AND)
-			return (this.hijos[0].evalua(mux) && this.hijos[1].evalua(mux));
+			(this.hijos[0].evalua(mux) && this.hijos[1].evalua(mux));
 		else if (this.elem == Operacion.OR)
-			return (this.hijos[0].evalua(mux) || this.hijos[1].evalua(mux));
+			(this.hijos[0].evalua(mux) || this.hijos[1].evalua(mux));
 		else if (this.elem == Operacion.NOT)
-			return (!this.hijos[0].evalua(mux));
+			(!this.hijos[0].evalua(mux));
 		else if (this.elem == Operacion.IF)
 			if (this.hijos[0].evalua(mux))
-				return this.hijos[1].evalua(mux);
+				this.hijos[1].evalua(mux);
 			else
-				return this.hijos[2].evalua(mux);
+				this.hijos[2].evalua(mux);
 		
-		return mux.evalua();
+		//return mux.evalua();
 	}
 	
 	private void rellenarOperaciones()
@@ -161,5 +162,23 @@ public class Nodo<T>
 		ret.setElem(this.elem);
 		ret.setNumNodos(this.numHijos);
 		return ret;
+	}
+	
+	public void bloating(int pMax, int nivel){
+		if(nivel == pMax){
+			// Si el nodo esta en la profundidad maxima, se borran sus hijos y se cambia por un terminal
+			for(int i=0; i < this.numHijos; ++i){
+				this.hijos[i] = null;
+			}
+			int r = Rand.nextInt(3);	// Los valores 0, 1 y 2 son terminales
+			T op = (T) Operacion.values()[r];
+			this.elem = op;
+			this.numHijos = 0;
+		}
+		else{
+			for(int i=0; i < this.numHijos; ++i){
+				this.hijos[i].bloating(pMax, nivel+1);
+			}
+		}
 	}
 }

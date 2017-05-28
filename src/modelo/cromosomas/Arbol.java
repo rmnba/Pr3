@@ -87,9 +87,14 @@ public class Arbol<T>
 		return buscado;
 	}
 	
-	public boolean evalua(Mux mux)
+	public void evalua(Mux mux)
 	{
-		return raiz.evalua(mux);
+		raiz.evalua(mux);
+	}
+	
+	public void bloating(int pMax) {
+		this.raiz.bloating(pMax, 0);
+		this.raiz.actualizaNumNodos();
 	}
 	
 	private Nodo<T> buscaNodoAux(Nodo<T> raiz, int numeroABuscar)

@@ -64,4 +64,8 @@ public class Cromosoma {
 	{
 		return this.punt;
 	}
+	
+	public void bloating(int prof){
+		genotipo.bloating(prof);
+	}
 }

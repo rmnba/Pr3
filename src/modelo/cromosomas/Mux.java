@@ -17,6 +17,8 @@ public class Mux
 	
 	private int elems;
 	
+	private int salida;
+	
 	public Mux(int elems)
 	{
 		this.a0 = false;
@@ -33,9 +35,11 @@ public class Mux
 		this.d7 = false;
 		
 		this.elems = elems;
+		
+		this.salida = 0;
 	}
 	
-	public boolean evalua()
+	public void evalua()
 	{
 		if (this.elems == 11)
 		{
@@ -55,29 +59,29 @@ public class Mux
 			this.d2 = (this.a0 && !this.a1);
 			this.d3 = (this.a0 && this.a1);
 		}
-		
-		return true;
 	}
 	
-	/*private int devolver()
+	public int salida()
 	{
 		if (d0)
-			return 0;
+			salida = 0;
 		else if (d1)
-			return 1;
+			salida = 1;
 		else if (d2)
-			return 2;
+			salida = 2;
 		else if (d3)
-			return 3;
+			salida = 3;
 		else if (d4)
-			return 4;
+			salida = 4;
 		else if (d5)
-			return 5;
+			salida = 5;
 		else if (d6)
-			return 6;
-		else
-			return 7;
-	}*/
+			salida = 6;
+		else if (d7)
+			salida = 7;
+		
+		return salida;
+	}
 
 	public boolean isA0() {
 		return a0;
