@@ -6,7 +6,7 @@ import modelo.cromosomas.Cromosoma;
 import modelo.cromosomas.Nodo;
 import modelo.cromosomas.Operacion;
 
-public class Cruce extends MetodoCruce {
+public class CruceSimple extends MetodoCruce {
 	
 	@Override
 	public void cruzar(Cromosoma a, Cromosoma b){
