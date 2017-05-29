@@ -7,7 +7,7 @@ public class Rand
 	
 	private static Random g = new Random();
 	
-	public static void setSeed(int seed)
+	public static void setSeed(long seed)
 	{
 		g.setSeed(seed);
 	}

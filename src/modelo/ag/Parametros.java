@@ -18,13 +18,13 @@ public class Parametros {
 	public MetodoSeleccion seleccion;
 	public double probCruce;
 	public double probMutacion;
-	public int seed;
+	public long seed;
 	
 	public Parametros(){
 		
 	}
 	
-	public Parametros(int t, int i, int pmin, int pmax, boolean m, boolean e, boolean c, boolean b, MetodoCruce cruce, MetodoMutacion mutacion, MetodoSeleccion seleccion, double probCruce, double probMutacion, int seed){
+	public Parametros(int t, int i, int pmin, int pmax, boolean m, boolean e, boolean c, boolean b, MetodoCruce cruce, MetodoMutacion mutacion, MetodoSeleccion seleccion, double probCruce, double probMutacion, long seed){
 		this.tamPob = t;
 		this.iteraciones = i;
 		this.profMin = pmin;
@@ -39,6 +39,8 @@ public class Parametros {
 		this.seed = seed;
 	}
 	
+	
+
 	public String toString(){
 		String ret = "";
 		ret += "Semilla: " + seed + "\n";

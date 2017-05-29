@@ -345,7 +345,7 @@ public class Ventana extends JFrame implements Observador, ActionListener
 			//s += "   x(" + (i + 1) + ") = " + elMejor.getFenotipo()[i] + "\n";
 		
 		s += "Maximo/Minimo obtenido:\n";
-		//s += "   f = " + elMejor.evalua() + "\n";
+		//s += "   f = " +  + "\n";
 		taResultados.setText(s);
 		
 		plot.addLinePlot("Media Poblacion", Color.GREEN, ejeGeneracion, valorMedia);
@@ -356,11 +356,12 @@ public class Ventana extends JFrame implements Observador, ActionListener
 	@Override
 	public void onGeneracionTerminada(Poblacion pob, Cromosoma mejorGen, Cromosoma elMejor, double media) {
 		// TODO Auto-generated method stub
-	
+		mejorGen.evalua();
+		elMejor.evalua();
 		ejeGeneracion[iteracion] = iteracion;
 		valorMedia[iteracion] = media;
-		//valorMejorGen[iteracion] = mejorGen.evalua();
-		//valorElMejor[iteracion] = elMejor.evalua();
+		valorMejorGen[iteracion] = mejorGen.getPunt();
+		valorElMejor[iteracion] = elMejor.getPunt();
 		iteracion++;
 	}
 

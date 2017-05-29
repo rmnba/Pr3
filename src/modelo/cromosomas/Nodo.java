@@ -21,14 +21,15 @@ public class Nodo<T>
 	public static Map <Operacion, Integer> operaciones;
 	private int numNodos;
 	
-	public Nodo(T elem, Nodo<T> padre, int nHijos, int pos)
+	public Nodo(T elem, Nodo<T> padre, int pos)
 	{
 		this.elem = elem;
-		this.numHijos = nHijos;
+		
 		operaciones = new HashMap<Operacion, Integer>();
 		this.rellenarOperaciones();
+		this.numHijos = operaciones.get(elem);
 		this.padre = padre;
-		this.hijos = new Nodo[nHijos];
+		this.hijos = new Nodo[numHijos];
 		this.pos = pos;
 	}
 	
@@ -167,7 +168,7 @@ public class Nodo<T>
 	}
 	
 	public Nodo<T> copia(Nodo<T> padre) {
-		Nodo<T> ret = new Nodo<T>(this.elem, padre, this.numHijos, this.pos);
+		Nodo<T> ret = new Nodo<T>(this.elem, padre, this.pos);
 		Nodo<T>[] hijos = new Nodo[this.numHijos];
 		for(int i=0; i < this.numHijos; ++i){
 			hijos[i] = this.hijos[i].copia(ret);

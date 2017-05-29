@@ -15,7 +15,7 @@ public class Arbol<T>
 	
 	public Arbol (T raiz)
 	{
-		this.raiz = new Nodo<T>(raiz, null, 0, Nodo.operaciones.get(raiz));
+		this.raiz = new Nodo<T>(raiz, null, 0);
 		this.numNodos = 0;
 	}
 	
@@ -25,7 +25,7 @@ public class Arbol<T>
 		{
 			int r = Rand.nextInt(6) + 4;
 			T op = (T) Operacion.values()[r];
-			a = new Nodo<T>(op, padre, Nodo.operaciones.get(op), pos);
+			a = new Nodo<T>(op, padre, pos);
 			this.numNodos = 1;
 			for (int i = 0; i < Nodo.operaciones.get(op); ++i)
 			{
@@ -38,14 +38,14 @@ public class Arbol<T>
 		{
 			int r = Rand.nextInt(6);
 			T op = (T) Operacion.values()[r];
-			a = new Nodo<T>(op, padre, Nodo.operaciones.get(op), pos);
+			a = new Nodo<T>(op, padre, pos);
 			this.numNodos = 1;
 		}
 		else
 		{
 			int r = Rand.nextInt(10);
 			T op = (T) Operacion.values()[r];
-			a = new Nodo<T>(op, padre, Nodo.operaciones.get(op), pos);
+			a = new Nodo<T>(op, padre, pos);
 			this.numNodos = 1;
 			for (int i = 0; i < Nodo.operaciones.get(op); ++i)
 			{

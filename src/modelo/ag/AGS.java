@@ -20,7 +20,7 @@ public class AGS {
 	public AGS(FactoriaCromosoma f, Parametros p){
 		this.factoria = f;
 		this.param = p;
-		this.pob = new Poblacion();
+		this.pob = new Poblacion(f);
 	}
 	
 	public Cromosoma ejecuta() {

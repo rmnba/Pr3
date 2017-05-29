@@ -7,8 +7,8 @@ import modelo.cromosomas.Operacion;
 public class Cromosoma {
 	
 	private Arbol<Operacion> genotipo;
-	private double punt;
-	private double puntAcum;
+	private int punt;
+	private int puntAcum;
 	private double adaptacion;
 	private int tamanoProblema;
 	public Cromosoma (int profMin, int profMax, int tamano){
@@ -31,6 +31,7 @@ public class Cromosoma {
 		boolean mask[] = null;
 		
 		if (tamanoProblema == 6) {
+			
 			for (int i = 0; i < 64; i++) {
 				mask = intToMask(i);
 				mux.setA0(mask[0]);
@@ -92,7 +93,7 @@ public class Cromosoma {
 		return this.genotipo;
 	}
 	
-	public void setPuntAcum(double puntAcum)
+	public void setPuntAcum(int puntAcum)
 	{
 		this.puntAcum = puntAcum;
 	}
@@ -107,7 +108,7 @@ public class Cromosoma {
 		return this.adaptacion;
 	}
 	
-	public void setPunt(double punt)
+	public void setPunt(int punt)
 	{
 		this.punt = punt;
 	}
