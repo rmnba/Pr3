@@ -4,15 +4,15 @@ public class FactoriaCromosoma {
 	
 	private int profMin;
 	private int profMax;
-	private int tamañoProblema;
-	public FactoriaCromosoma(int pMin, int pMax, int tamaño){
+	private int tamanoProblema;
+	public FactoriaCromosoma(int pMin, int pMax, int tamano){
 		this.profMin = pMin;
 		this.profMax = pMax;
-		tamañoProblema = tamaño;
+		tamanoProblema = tamano;
 	}
 	
 	public Cromosoma creaCromosoma(){
-		return new Cromosoma(profMin, profMax, tamañoProblema);
+		return new Cromosoma(profMin, profMax, tamanoProblema);
 	}
 
 	public int getProfMin(){

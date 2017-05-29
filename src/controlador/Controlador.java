@@ -3,10 +3,13 @@ package controlador;
 import modelo.Cruce;
 import modelo.Funcion;
 import modelo.Mutacion;
+import modelo.Rand;
 import modelo.Select;
 import modelo.ag.AGS;
 import modelo.ag.Observador;
+import modelo.ag.Parametros;
 import modelo.cromosomas.Cromosoma;
+import modelo.cromosomas.FactoriaCromosoma;
 import modelo.cruce.CruceSimple;
 
 
@@ -24,6 +27,13 @@ public class Controlador
 	public void addObserver(Observador o)
 	{
 		alg.addObserver(o);
+	}
+	
+	public void setParameters(Parametros p, int tamano){
+		FactoriaCromosoma f = new FactoriaCromosoma(p.profMin,p.profMax, tamano);
+		alg = new AGS(f, p);
+		this.cromosoma = f.creaCromosoma();
+		Rand.setSeed(p.seed);
 	}
 	
 	public void setParametersRun(Funcion funcion, int n,  double tol, int pob, int generaciones, double pCruce, double pMutacion, long seed, Cruce cruce, Select seleccion, Mutacion mutacion, boolean elitismo)
@@ -57,8 +67,8 @@ public class Controlador
 		
 		switch(f)
 		{
-		case Parte1: break;
-		case Parte2: break;
+			case Parte1: break;
+			case Parte2: break;
 		}
 		
 	}

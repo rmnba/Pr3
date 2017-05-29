@@ -10,16 +10,16 @@ public class Cromosoma {
 	private double punt;
 	private double puntAcum;
 	private double adaptacion;
-	private int tamañoProblema;
-	public Cromosoma (int profMin, int profMax, int tamaño){
+	private int tamanoProblema;
+	public Cromosoma (int profMin, int profMax, int tamano){
 		genotipo = new Arbol<Operacion>(Operacion.A0);
 		genotipo.creaArbolAleatorio(profMin, profMax);
-		tamañoProblema = tamaño;
+		tamanoProblema = tamano;
 		punt = 0;
 	}
 	
 	public Cromosoma copia(){
-		Cromosoma ret = new Cromosoma(genotipo.getProfMin(),genotipo.getProfMax(), tamañoProblema);
+		Cromosoma ret = new Cromosoma(genotipo.getProfMin(),genotipo.getProfMax(), tamanoProblema);
 		ret.punt = this.punt;
 		ret.puntAcum = this.puntAcum;
 		ret.adaptacion = this.adaptacion;
@@ -27,10 +27,10 @@ public class Cromosoma {
 		return ret;
 	}
 	public void evalua() {
-		Mux mux = new Mux(tamañoProblema);
+		Mux mux = new Mux(tamanoProblema);
 		boolean mask[] = null;
 		
-		if (tamañoProblema == 6) {
+		if (tamanoProblema == 6) {
 			for (int i = 0; i < 64; i++) {
 				mask = intToMask(i);
 				mux.setA0(mask[0]);
@@ -39,7 +39,7 @@ public class Cromosoma {
 				mux.setD1(mask[3]);
 				mux.setD2(mask[4]);
 				mux.setD3(mask[5]);
-				if (mux.resuelve() && genotipo.evalua(mux)) punt++;
+				if (mux.resuelve() == genotipo.evalua(mux)) punt++;
 			}
 		} else {
 			for (int i = 0; i < 2048; i++) {
@@ -55,15 +55,15 @@ public class Cromosoma {
 				mux.setD5(mask[8]);
 				mux.setD6(mask[9]);
 				mux.setD7(mask[10]);
-				if (mux.resuelve() && genotipo.evalua(mux)) punt++;
+				if (mux.resuelve() == genotipo.evalua(mux)) punt++;
 			}
 		}
 		
 	}
 	private boolean[] intToMask(int num) {
 		int exp=0;
-        boolean binario[] = new boolean[tamañoProblema];
-        for (int i = 0; i < tamañoProblema; i++) {
+        boolean binario[] = new boolean[tamanoProblema];
+        for (int i = 0; i < tamanoProblema; i++) {
         	binario[i] = false;
         }
         int digito = 0;

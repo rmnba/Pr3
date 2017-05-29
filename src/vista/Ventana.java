@@ -26,8 +26,17 @@ import modelo.Funcion;
 import modelo.Mutacion;
 import modelo.Select;
 import modelo.ag.Observador;
+import modelo.ag.Parametros;
 import modelo.ag.Poblacion;
 import modelo.cromosomas.Cromosoma;
+import modelo.cruce.CruceSimple;
+import modelo.mutacion.MetodoMutacion;
+import modelo.mutacion.MutacionArbol;
+import modelo.mutacion.MutacionFuncion;
+import modelo.mutacion.MutacionTerminal;
+import modelo.seleccion.MetodoSeleccion;
+import modelo.seleccion.SeleccionRuleta;
+import modelo.seleccion.SeleccionTorneo;
 
 public class Ventana extends JFrame implements Observador, ActionListener
 {
@@ -60,7 +69,7 @@ public class Ventana extends JFrame implements Observador, ActionListener
 	
 	private static Funcion[] funciones = {Funcion.Parte1,Funcion.Parte2};
 	private static Cruce[] crucesB = {Cruce.CRUCESIMPLE};
-	private static String[] selecciones = {"RULETA", "TORNEO DETERMINISTA", "TORNEO PROBABILISTA", "ESTOCASTICO"};
+	private static String[] selecciones = {"RULETA", "TORNEO", "ESTOCASTICO"};
 	private static Mutacion[] mutaciones = {Mutacion.ARBOL,Mutacion.FUNCION,Mutacion.TERMINAL};
 	
 	private Plot2DPanel plot;
@@ -71,12 +80,14 @@ public class Ventana extends JFrame implements Observador, ActionListener
 	private double[] valorElMejor;
 	private int iteracion;
 	
+	private Parametros p;
+	
 	public Ventana()
 	{
 		this.c = new Controlador();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.setTitle("Practica 2");
+		this.setTitle("Practica 3");
 		
 		cbFuncion = new JComboBox<Funcion>(funciones);
 		cbFuncion.setSelectedIndex(0);
@@ -197,29 +208,51 @@ public class Ventana extends JFrame implements Observador, ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		Select seleccion = null;
+		int jambo;
+		if (cbFuncion.getSelectedItem() == Funcion.Parte1)
+			jambo = 6;
+		else
+			jambo = 11;
+		
+		Select select = null;
+		
+		MetodoSeleccion seleccion = null;
 		switch ((String) cbSeleccion.getSelectedItem())
 		{
 			case "RULETA":
-				seleccion = Select.RULETA;
+				select = Select.RULETA;
+				seleccion = new SeleccionRuleta();
 				break;
-			case "TORNEO DETERMINISTA": 
-				seleccion = Select.TORNEO_D;
-				break;
-			case "TORNEO PROBABILISTA":
-				seleccion = Select.TORNEO_P;
+			case "TORNEO":
+				select = Select.TORNEO;
+				seleccion = new SeleccionTorneo();
 				break;
 			case "ESTOCASTICO":
-				seleccion = Select.ESTOCASTICO;
+				select = Select.ESTOCASTICO;
+				seleccion = new SeleccionRuleta();
 				break;
 		}
+		MetodoMutacion mutacion = null;
+		switch((Mutacion)cbMutacion.getSelectedItem())
+		{
+			case ARBOL:
+				mutacion = new MutacionArbol();
+				break;
+			case FUNCION:
+				mutacion = new MutacionFuncion();
+				break;
+			case TERMINAL:
+				mutacion = new MutacionTerminal();
+				break;				
+		}
 		
+		p = new Parametros(Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), 1, 5, true, cbElitismo.isSelected(), cbContractividad.isSelected(), true, new CruceSimple(), mutacion, seleccion, Integer.parseInt(tfprobCruces.getText()), Integer.parseInt(tfprobMutacion.getText()),(int) System.currentTimeMillis());
 		Object source = e.getSource();
 		if(run == source)
 		{
 			try
 			{
-				c.setParametersRun((Funcion)cbFuncion.getSelectedItem(), Integer.parseInt(tfN.getText()), Double.parseDouble(tfTolerancia.getText()), Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), Double.parseDouble(tfprobCruces.getText())/100, Double.parseDouble(tfprobMutacion.getText())/100, Long.parseLong(tfSemilla.getText()), (Cruce)cbCruce.getSelectedItem(), seleccion, (Mutacion) cbMutacion.getSelectedItem(), cbElitismo.isSelected());
+				c.setParametersRun((Funcion)cbFuncion.getSelectedItem(), Integer.parseInt(tfN.getText()), Double.parseDouble(tfTolerancia.getText()), Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), Double.parseDouble(tfprobCruces.getText())/100, Double.parseDouble(tfprobMutacion.getText())/100, Long.parseLong(tfSemilla.getText()), (Cruce)cbCruce.getSelectedItem(), select, (Mutacion) cbMutacion.getSelectedItem(), cbElitismo.isSelected());
 				taResultados.setForeground(Color.BLACK);
 			}
 			catch(NumberFormatException ex)
@@ -248,6 +281,7 @@ public class Ventana extends JFrame implements Observador, ActionListener
 			valorMedia = new double[Integer.parseInt(tfGeneraciones.getText())];
 			valorMejorGen = new double[Integer.parseInt(tfGeneraciones.getText())];
 			valorElMejor = new double[Integer.parseInt(tfGeneraciones.getText())];
+			c.setParameters(p, jambo);
 			plot.removeAllPlots();
 			c.addObserver(this);
 			c.lanzaAGS();
@@ -257,7 +291,7 @@ public class Ventana extends JFrame implements Observador, ActionListener
 		{
 			try
 			{
-				c.setParametersReRun((Funcion)cbFuncion.getSelectedItem(), Integer.parseInt(tfN.getText()), Double.parseDouble(tfTolerancia.getText()), Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), Double.parseDouble(tfprobCruces.getText())/100, Double.parseDouble(tfprobMutacion.getText())/100, Long.parseLong(tfSemilla.getText()), (Cruce)cbCruce.getSelectedItem(), seleccion, (Mutacion) cbMutacion.getSelectedItem(), cbElitismo.isSelected());
+				c.setParametersReRun((Funcion)cbFuncion.getSelectedItem(), Integer.parseInt(tfN.getText()), Double.parseDouble(tfTolerancia.getText()), Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), Double.parseDouble(tfprobCruces.getText())/100, Double.parseDouble(tfprobMutacion.getText())/100, Long.parseLong(tfSemilla.getText()), (Cruce)cbCruce.getSelectedItem(), select, (Mutacion) cbMutacion.getSelectedItem(), cbElitismo.isSelected());
 				taResultados.setForeground(Color.BLACK);
 			}
 			catch(NumberFormatException ex)
