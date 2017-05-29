@@ -55,7 +55,7 @@ public class AGS {
 			if(param.bloating){
 				for(int i=0; i < this.pob.tam; ++i){
 					//TODO
-					//this.pob.individuos[i].bloating(param.profMax);			
+					this.pob.individuos[i].bloating(param.profMax);			
 				}
 			}
 			if(param.elitismo){
