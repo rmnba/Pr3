@@ -27,6 +27,7 @@ public class Cromosoma {
 		return ret;
 	}
 	public void evalua() {
+		this.punt = 0;
 		Mux mux = new Mux(tamanoProblema);
 		boolean mask[] = null;
 		
@@ -59,7 +60,7 @@ public class Cromosoma {
 				if (mux.resuelve() == genotipo.evalua(mux)) punt++;
 			}
 		}
-		
+		puntAcum += punt;
 	}
 	private boolean[] intToMask(int num) {
 		int exp=0;
