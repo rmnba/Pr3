@@ -29,7 +29,7 @@ public class AGS {
 		this.generacion = 0;
 		this.pob.generaPoblacionAleatoria(param.tamPob, factoria.getProfMin(), factoria.getProfMax());
 		mediaAnterior = this.evaluarPoblacion();
-		this.elMejor = null;
+		
 		while(generacion < param.iteraciones){
 			int nElite = (int)(this.pob.tam * 0.02);
 			Cromosoma[] elite = null;

@@ -360,8 +360,8 @@ public class Ventana extends JFrame implements Observador, ActionListener
 		elMejor.evalua();
 		ejeGeneracion[iteracion] = iteracion;
 		valorMedia[iteracion] = media;
-		valorMejorGen[iteracion] = mejorGen.getPunt();
-		valorElMejor[iteracion] = elMejor.getPunt();
+		valorMejorGen[iteracion] = mejorGen.getAdaptacion();
+		valorElMejor[iteracion] = elMejor.getAdaptacion();
 		iteracion++;
 	}
 
