@@ -7,8 +7,8 @@ import modelo.cromosomas.Operacion;
 public class Cromosoma {
 	
 	private Arbol<Operacion> genotipo;
-	private int punt;
-	private int puntAcum;
+	private double punt;
+	private double puntAcum;
 	private double adaptacion;
 	private int tamanoProblema;
 	public Cromosoma (int profMin, int profMax, int tamano){
@@ -16,6 +16,8 @@ public class Cromosoma {
 		genotipo.creaArbolAleatorio(profMin, profMax);
 		tamanoProblema = tamano;
 		punt = 0;
+		puntAcum = 0;
+		adaptacion = 0;
 	}
 	
 	public Cromosoma copia(){
@@ -27,7 +29,7 @@ public class Cromosoma {
 		return ret;
 	}
 	public void evalua() {
-		this.punt = 0;
+		this.adaptacion = 0;
 		Mux mux = new Mux(tamanoProblema);
 		boolean mask[] = null;
 		
@@ -41,7 +43,7 @@ public class Cromosoma {
 				mux.setD1(mask[3]);
 				mux.setD2(mask[4]);
 				mux.setD3(mask[5]);
-				if (mux.resuelve() == genotipo.evalua(mux)) punt++;
+				if (mux.resuelve() == genotipo.evalua(mux)) adaptacion++;
 			}
 		} else {
 			for (int i = 0; i < 2048; i++) {
@@ -57,10 +59,10 @@ public class Cromosoma {
 				mux.setD5(mask[8]);
 				mux.setD6(mask[9]);
 				mux.setD7(mask[10]);
-				if (mux.resuelve() == genotipo.evalua(mux)) punt++;
+				if (mux.resuelve() == genotipo.evalua(mux)) adaptacion++;
 			}
 		}
-		puntAcum += punt;
+		
 	}
 	private boolean[] intToMask(int num) {
 		int exp=0;
@@ -94,7 +96,7 @@ public class Cromosoma {
 		return this.genotipo;
 	}
 	
-	public void setPuntAcum(int puntAcum)
+	public void setPuntAcum(double puntAcum)
 	{
 		this.puntAcum = puntAcum;
 	}
@@ -109,7 +111,7 @@ public class Cromosoma {
 		return this.adaptacion;
 	}
 	
-	public void setPunt(int punt)
+	public void setPunt(double punt)
 	{
 		this.punt = punt;
 	}

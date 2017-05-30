@@ -100,8 +100,8 @@ public class AGS {
 				notifyGeneracionTerminada(this.pob.individuos[this.indexElMejor], elMejor, mediaActual);
 			}
 		}
-		notifyAGSTerminado(elMejor);
 		this.elMejor.evalua();
+		notifyAGSTerminado(elMejor);
 		return this.elMejor;
 	}
 
@@ -131,8 +131,8 @@ public class AGS {
 			}	
 		}
 		for(int i=0; i < pob.tam; ++i){
-			pob.individuos[i].setPunt((int) (pob.individuos[i].getAdaptacion()/sumaAptitud));
-			pob.individuos[i].setPuntAcum((int) (pob.individuos[i].getPunt() + puntAcum));
+			pob.individuos[i].setPunt((pob.individuos[i].getAdaptacion()/sumaAptitud));
+			pob.individuos[i].setPuntAcum((pob.individuos[i].getPunt() + puntAcum));
 			puntAcum += pob.individuos[i].getPunt();
 		}
 		// Si se quiere minimizar, se busca el minimo (la aptitud es igual a la aptitud del maximo - aptitud individuo)
@@ -153,8 +153,8 @@ public class AGS {
 			}
 			puntAcum = 0;
 			for(int i=0; i < pob.tam; ++i){
-				pob.individuos[i].setPunt((int) ((maximo - pob.individuos[i].getAdaptacion())/sumaAptitud));
-				pob.individuos[i].setPuntAcum((int) (pob.individuos[i].getPunt() + puntAcum));
+				pob.individuos[i].setPunt(((maximo - pob.individuos[i].getAdaptacion())/sumaAptitud));
+				pob.individuos[i].setPuntAcum((pob.individuos[i].getPunt() + puntAcum));
 				puntAcum += pob.individuos[i].getPunt();
 			}
 		}
