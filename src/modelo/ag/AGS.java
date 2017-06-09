@@ -30,76 +30,7 @@ public class AGS {
 		this.pob.generaPoblacionAleatoria(param.tamPob, factoria.getProfMin(), factoria.getProfMax());
 		mediaAnterior = this.evaluarPoblacion();
 		
-		while(generacion < param.iteraciones){
-			int nElite = (int)(this.pob.tam * 0.02);
-			Cromosoma[] elite = null;
-			if(param.elitismo){
-				elite = new Cromosoma[nElite];
-				this.quicksort(this.pob.individuos, 0, this.pob.tam-1);
-				for(int i=0; i < nElite; ++i){
-					if(!param.maximizar){
-						elite[i] = this.pob.individuos[i].copia();
-					}
-					else{
-						elite[i] = this.pob.individuos[this.pob.tam-1-i].copia();
-					}
-				}
-			}
-			this.seleccion();
-			this.reproduccion();
-			this.mutacion();
-			for(int i=0; i < this.pob.tam; ++i){
-				//TODO
-				//this.pob.individuos[i].eliminaIntrones();
-			}
-			if(param.bloating){
-				for(int i=0; i < this.pob.tam; ++i){
-					//TODO
-					this.pob.individuos[i].bloating(param.profMax);			
-				}
-			}
-			if(param.elitismo){
-				this.quicksort(this.pob.individuos, 0, this.pob.tam-1);
-				for(int i=0; i < nElite; ++i){
-					// Elitismo: reemplazando por los peores 
-					if(!param.maximizar){
-						this.pob.individuos[this.pob.tam-1-i] = elite[i].copia();
-					}
-					else{
-						this.pob.individuos[i] = elite[i].copia();
-					}
-				}
-			}
-			mediaActual = this.evaluarPoblacion();
-			if(param.contractividad){
-				if(param.maximizar){
-					if(mediaAnterior < mediaActual){
-						this.generacion++;
-						notifyGeneracionTerminada(this.pob.individuos[this.indexElMejor], elMejor, mediaActual);
-					}
-					else{
-						this.generacionesDescartadas++;
-					}
-				}
-				else{
-					if(mediaAnterior > mediaActual){
-						this.generacion++;
-						notifyGeneracionTerminada(this.pob.individuos[this.indexElMejor], elMejor, mediaActual);
-					}
-					else{
-						this.generacionesDescartadas++;
-					}
-				}
-				if(this.generacionesDescartadas > 10*param.iteraciones){
-					param.contractividad = false;	// Si se descartan demasiadas generaciones se deshabilita
-					System.out.println("Se ha deshabilitado la contractividad");
-				}
-			}
-			else{
-				this.generacion++;
-				notifyGeneracionTerminada(this.pob.individuos[this.indexElMejor], elMejor, mediaActual);
-			}
-		}
+		
 		this.elMejor.evalua();
 		notifyAGSTerminado(elMejor);
 		return this.elMejor;
