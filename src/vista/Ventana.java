@@ -1,370 +1,420 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
+import javax.swing.*;
 import org.math.plot.Plot2DPanel;
 
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
-import controlador.Controlador;
-import modelo.Cruce;
-import modelo.Funcion;
-import modelo.Mutacion;
-import modelo.Select;
-import modelo.ag.Observador;
-import modelo.ag.Parametros;
-import modelo.ag.Poblacion;
-import modelo.cromosomas.Cromosoma;
-import modelo.cruce.CruceSimple;
-import modelo.mutacion.MetodoMutacion;
-import modelo.mutacion.MutacionArbol;
-import modelo.mutacion.MutacionFuncion;
-import modelo.mutacion.MutacionTerminal;
-import modelo.seleccion.MetodoSeleccion;
-import modelo.seleccion.SeleccionRuleta;
-import modelo.seleccion.SeleccionTorneo;
+import java.awt.Color;
 
-public class Ventana extends JFrame implements Observador, ActionListener
-{
+import javax.swing.JTextField;
+
+import java.awt.Button;
+import java.awt.event.ActionListener;
+import java.awt.Dimension;
+
+import javax.swing.JRadioButton;
+
+import java.awt.Font;
+
+public class Ventana {
+
+	private JFrame frmProgramacinEvolutiva;
+	private JPanel panelTorneo;
+	private JLabel labelTorneo;
+	private JTabbedPane grafPanel;
+	private int numberofgrafs=0;
+	private Button lanzaButton;
+	private Button relanzaButton;
+	private Button eliminaButton;
+	private JRadioButton elitismoRadio;
+	private JRadioButton IFRadio;
+	private JComboBox<String> seleccionCB;
+	private JComboBox<String> mutationCB;
+	private JComboBox<String> inicializacionCB;
+	private JComboBox<String> bloatingCB;
+	private JComboBox<String> calcTamCB;
+	private JTextField poblacionTextField;
+	private JTextField iteracionesTextField;
+	private JTextField crucesTextField;
+	private JTextField mutacionTextField;
+	private JTextField semillaTextField;
+	private JTextField mejorTextField;
+	private JTextField entreTextField;
+	private JTextField profundidadTextField;
+	private JLabel lblMejorAbsoluto;
+	private JLabel mejorAbsolutoLabel;
+	private JLabel lblProfundidadMax;
+	private JLabel calcTam;
+	private JTextField cromosomaFinal;
 
 	/**
-	 * 
+	 * Launch the application.
 	 */
-	private static final long serialVersionUID = -4601737718372115147L;
-	
-	private Controlador c;
-	private JComboBox<Funcion> cbFuncion; 
-	private JComboBox<Cruce> cbCruce;
-	private JComboBox<String> cbSeleccion;
-	private JComboBox<Mutacion> cbMutacion;
-	private JTextField tfTolerancia;
-	private JTextField tfPoblacion;
-	private JTextField tfGeneraciones;
-	private JTextField tfprobCruces;
-	private JTextField tfprobMutacion;
-	private JTextField tfSemilla;
-	private JLabel lbN;
-	private JLabel labelMutacion;
-	private JTextField tfN;
-	private JCheckBox cbElitismo;
-	private JCheckBox cbContractividad;
-	
-	private JButton run;
-	private JButton reRun;
-	private JButton stop;
-	
-	private static Funcion[] funciones = {Funcion.Parte1,Funcion.Parte2};
-	private static Cruce[] crucesB = {Cruce.CRUCESIMPLE};
-	private static String[] selecciones = {"RULETA", "TORNEO", "ESTOCASTICO"};
-	private static Mutacion[] mutaciones = {Mutacion.ARBOL,Mutacion.FUNCION,Mutacion.TERMINAL};
-	
-	private Plot2DPanel plot;
-	private JTextArea taResultados;
-	private double[] ejeGeneracion;
-	private double[] valorMedia;
-	private double[] valorMejorGen;
-	private double[] valorElMejor;
-	private int iteracion;
-	
-	private Parametros p;
-	
-	public Ventana()
-	{
-		this.c = new Controlador();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+/*
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					View window = new View();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+*/
+	/**
+	 * Create the application.
+	 */
+	public Ventana() {
+		initialize();
+		frmProgramacinEvolutiva.setVisible(true);
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmProgramacinEvolutiva = new JFrame();
+		frmProgramacinEvolutiva.setBackground(Color.WHITE);
+		frmProgramacinEvolutiva.setTitle("Programaci\u00F3n evolutiva");
+		frmProgramacinEvolutiva.getContentPane().setPreferredSize(new Dimension(600, 400));
+		frmProgramacinEvolutiva.setBounds(100, 100, 11500, 695);
+		frmProgramacinEvolutiva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(0, 0, 1362, 640);
+		panel.setPreferredSize(new Dimension(40, 40));
+		panel.setMaximumSize(new Dimension(50000, 50000));
+
+		JLabel lblPoblacion = new JLabel("Poblacion");
+		lblPoblacion.setBounds(10, 99, 102, 14);
+
+		poblacionTextField = new JTextField();
+		poblacionTextField.setText("50");
+		poblacionTextField.setBounds(122, 96, 189, 20);
+		poblacionTextField.setColumns(10);
+
+		JLabel lblIteraciones = new JLabel("Iteraciones");
+		lblIteraciones.setBounds(10, 190, 83, 14);
+
+		iteracionesTextField = new JTextField();
+		iteracionesTextField.setText("100");
+		iteracionesTextField.setBounds(122, 187, 189, 20);
+		iteracionesTextField.setColumns(10);
+
+		JLabel lblCruces = new JLabel("% Cruces");
+		lblCruces.setBounds(10, 215, 83, 14);
+
+		crucesTextField = new JTextField();
+		crucesTextField.setText("70");
+		crucesTextField.setBounds(122, 212, 189, 20);
+		crucesTextField.setColumns(10);
+
+		JLabel lblMutation = new JLabel("% Mutaci\u00F3n");
+		lblMutation.setBounds(10, 271, 83, 14);
+
+		mutacionTextField = new JTextField();
+		mutacionTextField.setText("10");
+		mutacionTextField.setBounds(122, 268, 189, 20);
+		mutacionTextField.setColumns(10);
+
+		JLabel lblSemilla = new JLabel("Semilla");
+		lblSemilla.setBounds(10, 296, 68, 14);
+
+		semillaTextField = new JTextField();
+		semillaTextField.setText("0");
+		semillaTextField.setBounds(122, 293, 189, 20);
+		semillaTextField.setColumns(10);
+
+		seleccionCB = new JComboBox<String>();
+		seleccionCB.setBounds(122, 318, 189, 20);
+		seleccionCB.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"Torneo Probabil\u00EDstico", "Torneo Determin\u00EDstico",
+				"Universal Estoc\u00E1stico", "Ruleta" }));
+		seleccionCB.setSelectedIndex(3);
+
+		JLabel lblSeleccion = new JLabel("Seleccion ");
+		lblSeleccion.setBounds(11, 321, 82, 14);
+
+		labelTorneo = new JLabel("Torneo Prob.");
+		labelTorneo.setOpaque(true);
+		labelTorneo.setBounds(10, 340, 83, 14);
+
+		panelTorneo = new JPanel();
+		panelTorneo.setOpaque(false);
+		panelTorneo.setBounds(10, 349, 301, 63);
+		frmProgramacinEvolutiva.getContentPane().setLayout(null);
+		panelTorneo.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelTorneo.setLayout(null);
+
+		JLabel lblmejor = new JLabel("%Mejor");
+		lblmejor.setBounds(10, 15, 46, 14);
+		panelTorneo.add(lblmejor);
+
+		JLabel lblNewLabel = new JLabel("Entre");
+		lblNewLabel.setBounds(10, 38, 70, 14);
+		panelTorneo.add(lblNewLabel);
+
+		mejorTextField = new JTextField();
+		mejorTextField.setText("60.0");
+		mejorTextField.setBounds(112, 12, 179, 20);
+		panelTorneo.add(mejorTextField);
+		mejorTextField.setColumns(10);
+
+		entreTextField = new JTextField();
+		entreTextField.setText("3");
+		entreTextField.setBounds(112, 35, 179, 20);
+		panelTorneo.add(entreTextField);
+		entreTextField.setColumns(10);
+
+		lanzaButton = new Button("Lanza una copia");
+		lanzaButton.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lanzaButton.setBounds(38, 531, 273, 31);
+
+		relanzaButton = new Button("Relanza este AG");
+		relanzaButton.setFont(new Font("Dialog", Font.PLAIN, 17));
+		relanzaButton.setBounds(38, 568, 273, 34);
+		relanzaButton.setVisible(false);
+
+		eliminaButton = new Button("Elimina este AG");
+		eliminaButton.setFont(new Font("Dialog", Font.PLAIN, 17));
+		eliminaButton.setBounds(38, 608, 273, 32);
+		panel.setLayout(null);
+		panel.add(lblPoblacion);
+		panel.add(poblacionTextField);
+		panel.add(lblIteraciones);
+		panel.add(iteracionesTextField);
+		panel.add(lblCruces);
+		panel.add(crucesTextField);
+		panel.add(lblMutation);
+		panel.add(mutacionTextField);
+		panel.add(lblSemilla);
+		panel.add(semillaTextField);
+		panel.add(seleccionCB);
+		panel.add(lblSeleccion);
+		panel.add(labelTorneo);
+		panel.add(panelTorneo);
+		panel.add(lanzaButton);
+		panel.add(relanzaButton);
+		panel.add(eliminaButton);
+		frmProgramacinEvolutiva.getContentPane().add(panel);
+
+		JLabel lblElitismo = new JLabel("Elitismo");
+		lblElitismo.setBounds(10, 48, 102, 14);
+		panel.add(lblElitismo);
+
+		elitismoRadio = new JRadioButton("");
+		elitismoRadio.setBounds(189, 48, 38, 23);
+		panel.add(elitismoRadio);
+
+		grafPanel = new JTabbedPane(JTabbedPane.TOP);
+		grafPanel.setBounds(438, 53, 886, 509);
+		panel.add(grafPanel);
 		
-		this.setTitle("Practica 3");
+		JLabel lblMutacin = new JLabel("Mutaci\u00F3n");
+		lblMutacin.setBounds(10, 240, 80, 14);
+		panel.add(lblMutacin);
 		
-		cbFuncion = new JComboBox<Funcion>(funciones);
-		cbFuncion.setSelectedIndex(0);
-		cbFuncion.addActionListener(this);
-		cbCruce = new JComboBox<Cruce>(crucesB);
-		cbCruce.setSelectedIndex(0);
-		cbSeleccion = new JComboBox<String>(selecciones);
-		cbSeleccion.setSelectedIndex(0);
-		cbMutacion = new JComboBox<Mutacion>(mutaciones);
-		cbMutacion.setSelectedIndex(0);
+		mutationCB = new JComboBox<String>();
+		mutationCB.setModel(new DefaultComboBoxModel<String>(new String[] {"Terminal simple", "Funcional simple", "Mutacion de arbol", "Permutacion"}));
+		mutationCB.setSelectedIndex(1);
+		mutationCB.setBounds(122, 237, 189, 20);
+		panel.add(mutationCB);
+						
+		lblMejorAbsoluto = new JLabel("Mejor total");
+		lblMejorAbsoluto.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
+		lblMejorAbsoluto.setForeground(Color.RED);
+		lblMejorAbsoluto.setBounds(10, 481, 180, 53);
+		panel.add(lblMejorAbsoluto);
 		
-		tfTolerancia = new JTextField("0.001", 6);
-		tfPoblacion = new JTextField("100", 6);
-		tfGeneraciones = new JTextField("100", 6);
-		tfprobCruces = new JTextField("60", 6);
-		tfprobMutacion = new JTextField("5", 6);
-		tfSemilla = new JTextField("0", 6);
-		tfN = new JTextField("1", 6);
-		lbN = new JLabel("n");
+		mejorAbsolutoLabel = new JLabel("0");
+		mejorAbsolutoLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
+		mejorAbsolutoLabel.setForeground(Color.RED);
+		mejorAbsolutoLabel.setBounds(209, 485, 169, 47);
+		panel.add(mejorAbsolutoLabel);
 		
-		labelMutacion = new JLabel("Mutacion");
+		JLabel lblPrcticadanielReyes = new JLabel("PR\u00C1CTICA 3");
+		lblPrcticadanielReyes.setForeground(Color.RED);
+		lblPrcticadanielReyes.setFont(new Font("Courier New", Font.BOLD, 15));
+		lblPrcticadanielReyes.setBounds(10, 11, 368, 26);
+		panel.add(lblPrcticadanielReyes);
 		
-		tfN.setVisible(false);
-		lbN.setVisible(false);
+		JLabel lblInicializacin = new JLabel("Inicializaci\u00F3n");
+		lblInicializacin.setBounds(10, 74, 102, 14);
+		panel.add(lblInicializacin);
 		
-		cbElitismo = new JCheckBox();
-		cbContractividad = new JCheckBox();
+		inicializacionCB= new JComboBox<String>();
+		inicializacionCB.setModel(new DefaultComboBoxModel<String>(new String[] {"Inicializacion completa", "Inicializacion creciente", "Ramped and half"}));
+		inicializacionCB.setSelectedIndex(2);
+		inicializacionCB.setBounds(122, 71, 189, 20);
+		panel.add(inicializacionCB);
 		
-		run = new JButton("Ejecuta este AG");
-		reRun = new JButton("Volver a ejecutar este mismo AG");
-		stop = new JButton("Elimina este AG");
+		JLabel lblBloating = new JLabel("Bloating");
+		lblBloating.setBounds(10, 423, 83, 14);
+		panel.add(lblBloating);
 		
-		run.addActionListener(this);
-		reRun.addActionListener(this);
-		stop.addActionListener(this);
+		bloatingCB = new JComboBox<String>();
+		bloatingCB.setModel(new DefaultComboBoxModel<String>(new String[] {"Metodo Tarpeian", "Penalizacion bien fundamentada"}));
+		bloatingCB.setBounds(122, 420, 189, 20);
+		panel.add(bloatingCB);
 		
-		plot = new Plot2DPanel();
+		lblProfundidadMax = new JLabel("Profundidad max");
+		lblProfundidadMax.setBounds(10, 124, 102, 14);
+		panel.add(lblProfundidadMax);
+		
+		profundidadTextField = new JTextField();
+		profundidadTextField.setText("6");
+		profundidadTextField.setBounds(122, 121, 190, 20);
+		panel.add(profundidadTextField);
+		profundidadTextField.setColumns(10);
+		
+		JLabel lblUsarIf = new JLabel("Usar IF");
+		lblUsarIf.setBounds(10, 149, 83, 14);
+		panel.add(lblUsarIf);
+		
+		IFRadio = new JRadioButton("");
+		IFRadio.setBounds(189, 148, 109, 23);
+		panel.add(IFRadio);
+		
+		JLabel lblMejorCromosoma = new JLabel("Mejor Cromosoma");
+		lblMejorCromosoma.setForeground(Color.RED);
+		lblMejorCromosoma.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
+		lblMejorCromosoma.setBounds(438, 559, 258, 31);
+		panel.add(lblMejorCromosoma);
+		
+		cromosomaFinal = new JTextField();
+		cromosomaFinal.setBounds(438, 596, 886, 20);
+		panel.add(cromosomaFinal);
+		cromosomaFinal.setColumns(10);
+		
+		calcTam = new JLabel("C\u00E1lculo tam.");
+		calcTam.setBounds(10, 448, 83, 14);
+		panel.add(calcTam);
+		
+		calcTamCB = new JComboBox<String>();
+		calcTamCB.setModel(new DefaultComboBoxModel<String>(new String[] {"Profundidad", "Num. nodos"}));
+		calcTamCB.setBounds(122, 445, 189, 20);
+		panel.add(calcTamCB);
+	}
+
+	public void addGraphPanel(double ejeGeneracion [],double[] mediait, double[] mejorit,double[] mejorabsoluto,String best) {
+		
+		Plot2DPanel plot = new Plot2DPanel();
 		plot.setPreferredSize(new Dimension(800,600));
 		plot.setAxisLabel(0, "Generacion");
 		plot.setAxisLabel(1, "Valor");
 		plot.setLegendOrientation("SOUTH");
 		
-		taResultados = new JTextArea();
-		taResultados.setPreferredSize(new Dimension(800,200));
-		taResultados.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Resultados"));
-		taResultados.setEditable(false);
-		taResultados.setAutoscrolls(true);
-		taResultados.setLineWrap(true);
-		taResultados.setWrapStyleWord(true);
-		JPanel panelFunciones = new JPanel();
-		panelFunciones.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Funcion"));
-		panelFunciones.setLayout(new GridLayout(2,2));
+		plot.addLinePlot("Media Poblacion", Color.GREEN, ejeGeneracion, mediait);
+		plot.addLinePlot("Mejor Generacion", Color.RED, ejeGeneracion, mejorit);
+		plot.addLinePlot("Mejor Absoluto", Color.BLUE, ejeGeneracion, mejorabsoluto);
 		
-		JPanel panelParametros = new JPanel();
-		panelParametros.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Parametros"));
-		panelParametros.setLayout(new GridLayout(9,2));
-		
-		JPanel panelAcciones = new JPanel();
-		panelAcciones.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Acciones"));
-		panelAcciones.setLayout(new GridLayout(3,1));
-		panelAcciones.setPreferredSize(new Dimension(200,200));
-
-		JPanel panelDatos = new JPanel();
-		panelDatos.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Datos"));
-		panelDatos.setLayout(new BorderLayout());
-		
-		panelFunciones.add(new JLabel("Funcion"));
-		panelFunciones.add(cbFuncion);
-		panelFunciones.add(lbN);
-		panelFunciones.add(tfN);
-		
-		panelParametros.add(new JLabel("Precision"));
-		panelParametros.add(tfTolerancia);
-		panelParametros.add(new JLabel("Poblacion"));
-		panelParametros.add(tfPoblacion);
-		panelParametros.add(new JLabel("Iteraciones"));
-		panelParametros.add(tfGeneraciones);
-		panelParametros.add(new JLabel("% Cruces"));
-		panelParametros.add(tfprobCruces);
-		panelParametros.add(new JLabel("% Mutacion"));
-		panelParametros.add(tfprobMutacion);
-		panelParametros.add(new JLabel("Semilla"));
-		panelParametros.add(tfSemilla);
-		panelParametros.add(new JLabel("Cruce"));
-		panelParametros.add(cbCruce);
-		panelParametros.add(new JLabel("Seleccion"));
-		panelParametros.add(cbSeleccion);
-		panelParametros.add(labelMutacion);
-		panelParametros.add(cbMutacion);
-		panelParametros.add(new JLabel("Elitismo"));
-		panelParametros.add(cbElitismo);
-		panelParametros.add(new JLabel("Contractividad"));
-		panelParametros.add(cbContractividad);
-		
-		panelAcciones.add(run);
-		panelAcciones.add(reRun);
-		panelAcciones.add(stop);
-		
-		
-		JPanel panelControles = new JPanel(new BorderLayout());
-		
-		panelControles.setLayout(new BorderLayout());
-		panelControles.add(panelFunciones, BorderLayout.NORTH);
-		panelControles.add(panelParametros, BorderLayout.CENTER);
-		panelControles.add(panelAcciones, BorderLayout.SOUTH);
-		
-		panelDatos.add(plot,BorderLayout.CENTER);
-		panelDatos.add(taResultados, BorderLayout.SOUTH);
-		
-		this.add(panelControles, BorderLayout.WEST);
-		this.add(panelDatos, BorderLayout.CENTER);
-		
-		this.pack();
+		mejorAbsolutoLabel.setText(Double.toString(mejorabsoluto[mejorabsoluto.length-1]));
+		cromosomaFinal.setText(best);
+		numberofgrafs++;
+		grafPanel.addTab( "AG"+numberofgrafs, null, plot, "");
+		grafPanel.setSelectedIndex(numberofgrafs-1);
 	}
 
 	
-
-	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		int jambo;
-		if (cbFuncion.getSelectedItem() == Funcion.Parte1)
-			jambo = 6;
-		else
-			jambo = 11;
-		
-		Select select = null;
-		
-		MetodoSeleccion seleccion = null;
-		switch ((String) cbSeleccion.getSelectedItem())
-		{
-			case "RULETA":
-				select = Select.RULETA;
-				seleccion = new SeleccionRuleta();
-				break;
-			case "TORNEO":
-				select = Select.TORNEO;
-				seleccion = new SeleccionTorneo();
-				break;
-			case "ESTOCASTICO":
-				select = Select.ESTOCASTICO;
-				seleccion = new SeleccionRuleta();
-				break;
+	public void borrarGrafActivo(){
+		if(grafPanel.getSelectedIndex()>=0){
+			grafPanel.removeTabAt(grafPanel.getSelectedIndex());
+			numberofgrafs--;
 		}
-		MetodoMutacion mutacion = null;
-		switch((Mutacion)cbMutacion.getSelectedItem())
-		{
-			case ARBOL:
-				mutacion = new MutacionArbol();
-				break;
-			case FUNCION:
-				mutacion = new MutacionFuncion();
-				break;
-			case TERMINAL:
-				mutacion = new MutacionTerminal();
-				break;				
-		}
-		
-		p = new Parametros(Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), 1, 5, true, cbElitismo.isSelected(), cbContractividad.isSelected(), true, new CruceSimple(), mutacion, seleccion, Integer.parseInt(tfprobCruces.getText()), Integer.parseInt(tfprobMutacion.getText()),(int) System.currentTimeMillis());
-		Object source = e.getSource();
-		if(run == source)
-		{
-			try
-			{
-				c.setParametersRun((Funcion)cbFuncion.getSelectedItem(), Integer.parseInt(tfN.getText()), Double.parseDouble(tfTolerancia.getText()), Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), Double.parseDouble(tfprobCruces.getText())/100, Double.parseDouble(tfprobMutacion.getText())/100, Long.parseLong(tfSemilla.getText()), (Cruce)cbCruce.getSelectedItem(), select, (Mutacion) cbMutacion.getSelectedItem(), cbElitismo.isSelected());
-				taResultados.setForeground(Color.BLACK);
-			}
-			catch(NumberFormatException ex)
-			{
-				if (tfN.getText().equals(null))
-				{
-					taResultados.setText("RELLENAR CAMPO N");
-					taResultados.setForeground(Color.RED);
-				}
-				else
-				{
-					taResultados.setText("DATOS ERRONEOS");
-					taResultados.setForeground(Color.RED);
-				}
-				tfN.setText(null);
-				return;
-			}
-			catch(NegativeArraySizeException ex)
-			{
-				taResultados.setText("DATOS NEGATIVOS");
-				taResultados.setForeground(Color.RED);
-				return;
-			}
-			iteracion = 0;
-			ejeGeneracion = new double[Integer.parseInt(tfGeneraciones.getText())];
-			valorMedia = new double[Integer.parseInt(tfGeneraciones.getText())];
-			valorMejorGen = new double[Integer.parseInt(tfGeneraciones.getText())];
-			valorElMejor = new double[Integer.parseInt(tfGeneraciones.getText())];
-			c.setParameters(p, jambo);
-			plot.removeAllPlots();
-			c.addObserver(this);
-			c.lanzaAGS();
-			
-		}
-		else if(reRun == source)
-		{
-			try
-			{
-				c.setParametersReRun((Funcion)cbFuncion.getSelectedItem(), Integer.parseInt(tfN.getText()), Double.parseDouble(tfTolerancia.getText()), Integer.parseInt(tfPoblacion.getText()), Integer.parseInt(tfGeneraciones.getText()), Double.parseDouble(tfprobCruces.getText())/100, Double.parseDouble(tfprobMutacion.getText())/100, Long.parseLong(tfSemilla.getText()), (Cruce)cbCruce.getSelectedItem(), select, (Mutacion) cbMutacion.getSelectedItem(), cbElitismo.isSelected());
-				taResultados.setForeground(Color.BLACK);
-			}
-			catch(NumberFormatException ex)
-			{
-				if (tfN.getText().equals(null))
-				{
-					taResultados.setText("RELLENAR CAMPO N");
-					taResultados.setForeground(Color.RED);
-				}
-				else
-				{
-					taResultados.setText("DATOS ERRONEOS");
-					taResultados.setForeground(Color.RED);
-				}
-				tfN.setText(null);
-				return;
-			}
-			catch(NegativeArraySizeException ex)
-			{
-				taResultados.setText("DATOS NEGATIVOS");
-				taResultados.setForeground(Color.RED);
-				return;
-			}
-			iteracion = 0;
-			ejeGeneracion = new double[Integer.parseInt(tfGeneraciones.getText())];
-			valorMedia = new double[Integer.parseInt(tfGeneraciones.getText())];
-			valorMejorGen = new double[Integer.parseInt(tfGeneraciones.getText())];
-			valorElMejor = new double[Integer.parseInt(tfGeneraciones.getText())];
-			plot.removeAllPlots();
-			c.addObserver(this);
-			c.lanzaAGS();
-			
-		}
-		else if(stop == source)
-		{
-			plot.removeAllPlots();
-			taResultados.setText(null);
-		}
-		else if(cbFuncion == source)
-		{
-			
-		}
-		
 	}
 
-	@Override
-	public void onAGSTerminado(Cromosoma elMejor) 
-	{
-		String s = "Genes:\n";
-		//for(int i=0; i < elMejor.getnVar(); ++i)
-			//s += "   x(" + (i + 1) + ") = " + elMejor.getFenotipo()[i] + "\n";
-		
-		s += "Maximo/Minimo obtenido:\n";
-		//s += "   f = " +  + "\n";
-		taResultados.setText(s);
-		
-		plot.addLinePlot("Media Poblacion", Color.GREEN, ejeGeneracion, valorMedia);
-		plot.addLinePlot("Mejor Generacion", Color.RED, ejeGeneracion, valorMejorGen);
-		plot.addLinePlot("Mejor Absoluto", Color.BLUE, ejeGeneracion, valorElMejor);
+	public void setVisibilityTorneo(boolean visible) {
+		panelTorneo.setVisible(visible);
+		labelTorneo.setVisible(visible);
+	}
+	
+	public int getPoblacionText() {
+		return Integer.parseInt(poblacionTextField.getText());
+	}
+	
+	public int getProfundidadText() {
+		return Integer.parseInt(profundidadTextField.getText());
 	}
 
-	@Override
-	public void onGeneracionTerminada(Poblacion pob, Cromosoma mejorGen, Cromosoma elMejor, double media) {
-		// TODO Auto-generated method stub
-		mejorGen.evalua();
-		elMejor.evalua();
-		ejeGeneracion[iteracion] = iteracion;
-		valorMedia[iteracion] = media;
-		valorMejorGen[iteracion] = mejorGen.getAdaptacion();
-		valorElMejor[iteracion] = elMejor.getAdaptacion();
-		iteracion++;
+	public int getIteracionesText() {
+		return Integer.parseInt(iteracionesTextField.getText());
 	}
 
+	public Double getCrucesText() {
+		return Double.parseDouble(crucesTextField.getText()) / 100;
+	}
 
+	public Double getMutacionText() {
+		return Double.parseDouble(mutacionTextField.getText()) / 100;
+	}
 
+	public int getSemillaText() {
+		return Integer.parseInt(semillaTextField.getText());
+	}
+
+	public Double getMejorTextField() {
+		return Double.parseDouble(mejorTextField.getText()) / 100;
+	}
+
+	public int getEntreTextField() {
+		return Integer.parseInt(entreTextField.getText());
+	}
+	
+	public String getInitializationTextField() {
+		return (String) inicializacionCB.getSelectedItem();
+	}
+
+	public boolean getElitismoButton() {
+		return elitismoRadio.isSelected();
+	}
+	
+	public boolean getIFButton() {
+		return IFRadio.isSelected();
+	}
+
+	public int getSeleccionCBIndex() {
+		return seleccionCB.getSelectedIndex();
+	}
+	
+	public int getMutationCBIndex() {
+		return mutationCB.getSelectedIndex();
+	}
+	
+	public int getBloatingCBIndex() {
+		return bloatingCB.getSelectedIndex();
+	}
+	
+	public int getCalcTamCBIndex() {
+		return calcTamCB.getSelectedIndex();
+	}
+
+	public void setSeleccionCBListener(ActionListener a) {
+		seleccionCB.addActionListener(a);
+	}
+	
+	public void setLanzaButtonListener(ActionListener a) {
+		lanzaButton.addActionListener(a);
+	}
+
+	public void setRelanzaButtonListener(ActionListener a) {
+		relanzaButton.addActionListener(a);
+	}
+
+	public void setEliminaButtonListener(ActionListener a) {
+		eliminaButton.addActionListener(a);
+	}
+	
+	public void setVisibilityRelanza(boolean b) {
+		relanzaButton.setVisible(b);
+		
+	}
+	
 }

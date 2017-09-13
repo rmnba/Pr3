@@ -1,23 +1,14 @@
 package main;
-import java.awt.EventQueue;
 
+
+import controlador.Control;
 import vista.Ventana;
 
 public class Main {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Ventana ventana = new Ventana();
-		EventQueue.invokeLater(new Runnable()
-		{
-
-			@Override
-			public void run() 
-			{
-				ventana.setVisible(true);						
-			}
-			
-		});
+	
+	public static void main(String[] args) {	
+		
+		Ventana window = new Ventana();
+		new Control(window);
 	}
-
 }
