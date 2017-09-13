@@ -1,7 +1,7 @@
 package main;
 
 
-import controlador.Control;
+import controlador.Controlador;
 import vista.Ventana;
 
 public class Main {
@@ -9,6 +9,6 @@ public class Main {
 	public static void main(String[] args) {	
 		
 		Ventana window = new Ventana();
-		new Control(window);
+		new Controlador(window);
 	}
 }

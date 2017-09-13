@@ -23,7 +23,7 @@ import mutacion.MutacionFuncion;
 import mutacion.MutacionTerminal;
 import mutacion.MutacionArbol;
 
-public class Control {
+public class Controlador {
 	private Ventana view;
 	private AG algoritmoGen;
 	private int iteraciones;
@@ -31,7 +31,7 @@ public class Control {
 	private double maxaptitud;
 	//private double minaptitud;
 	
-	public Control(Ventana v) {
+	public Controlador(Ventana v) {
 		view = v;
 		media=0;
 		maxaptitud=0;
