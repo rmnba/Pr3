@@ -1,4 +1,4 @@
-package mutacion;
+package modelo.mutacion;
 
 import java.util.Random;
 
@@ -80,7 +80,7 @@ public class MutacionTerminal extends Mutacion {
 	}
 	
 	/*
-	 * Devuelve el número de nodos terminales que hay en todo el cromosoma.
+	 * Devuelve el nï¿½mero de nodos terminales que hay en todo el cromosoma.
 	 * */
 	private int getTerminalsSize(TreeNode<Gene> genes) {
 		if (Terminal.class.isInstance(genes.getData())) {

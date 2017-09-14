@@ -46,43 +46,21 @@ public class Ventana {
 	private JTextField entreTextField;
 	private JTextField profundidadTextField;
 	private JLabel lblMejorAbsoluto;
-	private JLabel mejorAbsolutoLabel;
 	private JLabel lblProfundidadMax;
 	private JLabel calcTam;
-	private JTextField cromosomaFinal;
+	private JTextArea cromosomaFinal;
 
-	/**
-	 * Launch the application.
-	 */
-/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					View window = new View();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the application.
-	 */
+	
 	public Ventana() {
 		initialize();
 		frmProgramacinEvolutiva.setVisible(true);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frmProgramacinEvolutiva = new JFrame();
 		frmProgramacinEvolutiva.setBackground(Color.WHITE);
-		frmProgramacinEvolutiva.setTitle("Programaci\u00F3n evolutiva");
+		frmProgramacinEvolutiva.setTitle("Programacion evolutiva");
 		frmProgramacinEvolutiva.getContentPane().setPreferredSize(new Dimension(600, 400));
 		frmProgramacinEvolutiva.setBounds(100, 100, 11500, 695);
 		frmProgramacinEvolutiva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,7 +95,7 @@ public class Ventana {
 		crucesTextField.setBounds(122, 212, 189, 20);
 		crucesTextField.setColumns(10);
 
-		JLabel lblMutation = new JLabel("% Mutaci\u00F3n");
+		JLabel lblMutation = new JLabel("% Mutacion");
 		lblMutation.setBounds(10, 271, 83, 14);
 
 		mutacionTextField = new JTextField();
@@ -136,8 +114,8 @@ public class Ventana {
 		seleccionCB = new JComboBox<String>();
 		seleccionCB.setBounds(122, 318, 189, 20);
 		seleccionCB.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Torneo Probabil\u00EDstico", "Torneo Determin\u00EDstico",
-				"Universal Estoc\u00E1stico", "Ruleta" }));
+				"Torneo Probabilistico", "Torneo Deterministico",
+				"Universal Estocastico", "Ruleta" }));
 		seleccionCB.setSelectedIndex(3);
 
 		JLabel lblSeleccion = new JLabel("Seleccion ");
@@ -151,7 +129,6 @@ public class Ventana {
 		panelTorneo.setOpaque(false);
 		panelTorneo.setBounds(10, 349, 301, 63);
 		frmProgramacinEvolutiva.getContentPane().setLayout(null);
-		panelTorneo.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelTorneo.setLayout(null);
 
 		JLabel lblmejor = new JLabel("%Mejor");
@@ -174,17 +151,14 @@ public class Ventana {
 		panelTorneo.add(entreTextField);
 		entreTextField.setColumns(10);
 
-		lanzaButton = new Button("Lanza una copia");
-		lanzaButton.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lanzaButton = new Button("Iniciar");
 		lanzaButton.setBounds(38, 531, 273, 31);
 
-		relanzaButton = new Button("Relanza este AG");
-		relanzaButton.setFont(new Font("Dialog", Font.PLAIN, 17));
+		relanzaButton = new Button("Reiniciar");
 		relanzaButton.setBounds(38, 568, 273, 34);
 		relanzaButton.setVisible(false);
 
-		eliminaButton = new Button("Elimina este AG");
-		eliminaButton.setFont(new Font("Dialog", Font.PLAIN, 17));
+		eliminaButton = new Button("Eliminar");
 		eliminaButton.setBounds(38, 608, 273, 32);
 		panel.setLayout(null);
 		panel.add(lblPoblacion);
@@ -228,23 +202,6 @@ public class Ventana {
 		mutationCB.setBounds(122, 237, 189, 20);
 		panel.add(mutationCB);
 						
-		lblMejorAbsoluto = new JLabel("Mejor total");
-		lblMejorAbsoluto.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
-		lblMejorAbsoluto.setForeground(Color.RED);
-		lblMejorAbsoluto.setBounds(10, 481, 180, 53);
-		panel.add(lblMejorAbsoluto);
-		
-		mejorAbsolutoLabel = new JLabel("0");
-		mejorAbsolutoLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
-		mejorAbsolutoLabel.setForeground(Color.RED);
-		mejorAbsolutoLabel.setBounds(209, 485, 169, 47);
-		panel.add(mejorAbsolutoLabel);
-		
-		JLabel lblPrcticadanielReyes = new JLabel("PR\u00C1CTICA 3");
-		lblPrcticadanielReyes.setForeground(Color.RED);
-		lblPrcticadanielReyes.setFont(new Font("Courier New", Font.BOLD, 15));
-		lblPrcticadanielReyes.setBounds(10, 11, 368, 26);
-		panel.add(lblPrcticadanielReyes);
 		
 		JLabel lblInicializacin = new JLabel("Inicializaci\u00F3n");
 		lblInicializacin.setBounds(10, 74, 102, 14);
@@ -255,6 +212,7 @@ public class Ventana {
 		inicializacionCB.setSelectedIndex(2);
 		inicializacionCB.setBounds(122, 71, 189, 20);
 		panel.add(inicializacionCB);
+		  
 		
 		JLabel lblBloating = new JLabel("Bloating");
 		lblBloating.setBounds(10, 423, 83, 14);
@@ -283,18 +241,17 @@ public class Ventana {
 		IFRadio.setBounds(189, 148, 109, 23);
 		panel.add(IFRadio);
 		
-		JLabel lblMejorCromosoma = new JLabel("Mejor Cromosoma");
-		lblMejorCromosoma.setForeground(Color.RED);
-		lblMejorCromosoma.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
+		JLabel lblMejorCromosoma = new JLabel("Salida");
 		lblMejorCromosoma.setBounds(438, 559, 258, 31);
 		panel.add(lblMejorCromosoma);
 		
-		cromosomaFinal = new JTextField();
-		cromosomaFinal.setBounds(438, 596, 886, 20);
-		panel.add(cromosomaFinal);
-		cromosomaFinal.setColumns(10);
 		
-		calcTam = new JLabel("C\u00E1lculo tam.");
+		cromosomaFinal = new JTextArea();
+		cromosomaFinal.setBounds(438, 596, 886, 50);
+		panel.add(cromosomaFinal);
+		
+		
+		calcTam = new JLabel("Calculo tam.");
 		calcTam.setBounds(10, 448, 83, 14);
 		panel.add(calcTam);
 		
@@ -316,7 +273,9 @@ public class Ventana {
 		plot.addLinePlot("Mejor Generacion", Color.RED, ejeGeneracion, mejorit);
 		plot.addLinePlot("Mejor Absoluto", Color.BLUE, ejeGeneracion, mejorabsoluto);
 		
-		mejorAbsolutoLabel.setText(Double.toString(mejorabsoluto[mejorabsoluto.length-1]));
+		
+		best += "\n=========================================================================\n";
+		best += "Aptitud MEJOR : "+ Double.toString(mejorabsoluto[mejorabsoluto.length-1]) +"\n";
 		cromosomaFinal.setText(best);
 		numberofgrafs++;
 		grafPanel.addTab( "AG"+numberofgrafs, null, plot, "");

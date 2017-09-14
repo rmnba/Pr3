@@ -1,4 +1,4 @@
-package mutacion;
+package modelo.mutacion;
 
 import java.util.Random;
 
@@ -21,7 +21,7 @@ public class MutacionFuncion extends Mutacion{
 
 	@Override
 	/*
-	 *  Al azar se selecciona la nueva función por la que vamos a sustituir a la antigua y llamamos a changeFunction.
+	 *  Al azar se selecciona la nueva funciï¿½n por la que vamos a sustituir a la antigua y llamamos a changeFunction.
 	 */
 	protected void mutate(Chromosome chromosome) {
 		int functionsSize = getFunctionsSize(chromosome.getGenes());
@@ -49,7 +49,7 @@ public class MutacionFuncion extends Mutacion{
 	}
 	
 	/*
-	 *  Añade al cromosoma un nodo terminal.
+	 *  Aï¿½ade al cromosoma un nodo terminal.
 	 */
 	 private void addRandomTerminal(Chromosome chromosome, TreeNode<Gene> gene) {
 		  Random rnd = new Random(System.currentTimeMillis());
@@ -92,8 +92,8 @@ public class MutacionFuncion extends Mutacion{
 		 }
 	
 	/* 
-	 * Recorremos el arbol de raiz a hojas y elegimos la función que vamos a cambiar basandonos en el paramentro election.
-	 * Se cambia la función y se ajusta el numero de hijos.
+	 * Recorremos el arbol de raiz a hojas y elegimos la funciï¿½n que vamos a cambiar basandonos en el paramentro election.
+	 * Se cambia la funciï¿½n y se ajusta el numero de hijos.
 	 */
 	private void changeFunction(Chromosome chromosome,TreeNode<Gene> genes, Function newFunction,int idfunction) {
 		if (Function.class.isInstance(genes.getData())) {
@@ -139,7 +139,7 @@ public class MutacionFuncion extends Mutacion{
 	}
 	
 	/* 
-	 * Devuelve el número total de nodos función que hay en el cromosoma. 
+	 * Devuelve el nï¿½mero total de nodos funciï¿½n que hay en el cromosoma. 
 	 */
 	private int getFunctionsSize(TreeNode<Gene> genes) {
 			int size = 0;

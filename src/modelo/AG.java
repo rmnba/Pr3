@@ -5,7 +5,7 @@ import modelo.cruce.Cruce;
 import modelo.poblacion.Chromosome;
 import modelo.poblacion.Individuals;
 import modelo.seleccion.Seleccion;
-import mutacion.Mutacion;
+import modelo.mutacion.Mutacion;
 
 public class AG {
 	

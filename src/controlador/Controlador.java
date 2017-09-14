@@ -9,6 +9,11 @@ import modelo.bloating.Bloating;
 import modelo.bloating.MetodoTarpeian;
 import modelo.bloating.PenalizacionBienFundamentada;
 import modelo.cruce.Cruce;
+import modelo.mutacion.Mutacion;
+import modelo.mutacion.MutacionArbol;
+import modelo.mutacion.MutacionFuncion;
+import modelo.mutacion.MutacionTerminal;
+import modelo.mutacion.Permutacion;
 import modelo.poblacion.Chromosome;
 import modelo.poblacion.Individuals;
 import modelo.seleccion.Ruleta;
@@ -16,12 +21,8 @@ import modelo.seleccion.Seleccion;
 import modelo.seleccion.TorneoDet;
 import modelo.seleccion.TorneoPro;
 import modelo.seleccion.Estocastico;
-import mutacion.Mutacion;
-import mutacion.Permutacion;
 import vista.Ventana;
-import mutacion.MutacionFuncion;
-import mutacion.MutacionTerminal;
-import mutacion.MutacionArbol;
+
 
 public class Controlador {
 	private Ventana view;
@@ -218,17 +219,8 @@ public class Controlador {
 		}
 		media= media/mediait.length;
 		
-		System.out.println("=========================================================================");
-		System.out.println("Mejor chromosoma : " + mejorabs);
-		System.out.println("Aptitud MEJOR : "+ mejorfitness);
-		System.out.println("Profundidad  : "+ mejorabs.getDepth());
-		System.out.println("Numero de nodos   : "+ mejorabs.getNodes());
-		//System.out.println("Aptitud PEOR : "+ peorfitness);
-		//System.out.println("Media total: " +media);
-		//System.out.println("Total Cruces : " + algoritmoGen.getTotalcruces());
-		//System.out.println("Total Mutaciones : " + algoritmoGen.getTotalmutaciones());
-		//System.out.println("Total Inversiones: " + algoritmoGen.getTotalinversiones());
-	
+		
+		
 		
 	}
 	

@@ -1,4 +1,4 @@
-package mutacion;
+package modelo.mutacion;
 
 import java.util.Random;
 

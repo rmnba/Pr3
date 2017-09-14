@@ -1,4 +1,4 @@
-package mutacion;
+package modelo.mutacion;
 
 import java.util.Random;
 
@@ -14,7 +14,7 @@ public class MutacionArbol extends Mutacion{
 
 	@Override
 	/*
-	 * Selecciona un nodo del arbol al azar y crea un nuevo árbol el cual sustituye al anterior.
+	 * Selecciona un nodo del arbol al azar y crea un nuevo ï¿½rbol el cual sustituye al anterior.
 	 * */
 	protected void mutate(Chromosome chromosome) {
 		Random rnd = new Random();
